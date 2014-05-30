@@ -1,0 +1,6 @@
+<ul>
+  {% for resource in object_list %}
+    <li>{{ resource.name }}</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'databases:new' %}">Adicionar nova database</a>

@@ -1,3 +1,8 @@
 from django import forms
+from .models import Database
 
-# place form definition here
+
+class DatabaseForm(forms.ModelForm):
+    class Meta:
+        model = Database
+

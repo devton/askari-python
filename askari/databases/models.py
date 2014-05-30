@@ -15,3 +15,6 @@ class Database(models.Model):
     password = models.CharField(max_length=255)
     engine = models.CharField(max_length=255, choices=ENGINE_CHOICES)
 
+    def __unicode__(self):
+        return self.name
+
