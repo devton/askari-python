@@ -5,18 +5,18 @@ from .models import Database
 from .forms import DatabaseForm
 
 
-class DefaultDatabaseMethods(object):
+class DatabaseMixin(object):
     form_class = DatabaseForm
 
     def get_success_url(self):
         return reverse('databases:list')
 
 
-class DatabaseCreateView(CreateView, DefaultDatabaseMethods):
+class DatabaseCreateView(CreateView, DatabaseMixin):
     template_name = 'databases/database_form.html'
 
 
-class DatabaseUpdateView(UpdateView, DefaultDatabaseMethods):
+class DatabaseUpdateView(UpdateView, DatabaseMixin):
 
     def get_object(self, queryset=None):
         return Database.objects.get(pk=self.kwargs.get('object_id'))
