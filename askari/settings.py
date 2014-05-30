@@ -124,8 +124,9 @@ INSTALLED_APPS = (
     'django_extensions',
     'askari.databases',
     'askari.dataclips',
+    'askari.core',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
@@ -158,3 +159,7 @@ LOGGING = {
         },
     }
 }
+
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
+LOGIN_REDIRECT_URL = '/dataclips/'

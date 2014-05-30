@@ -1,11 +1,12 @@
 # Create your views here.
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse
+from ..core.views import LoginRequiredViewMixin
 from .models import Database
 from .forms import DatabaseForm
 
 
-class DatabaseMixin(object):
+class DatabaseMixin(LoginRequiredViewMixin):
     model = Database
 
 
@@ -22,7 +23,6 @@ class DatabaseCreateView(DatabaseFormMixin, CreateView):
 
 class DatabaseUpdateView(DatabaseFormMixin, UpdateView):
     pass
-
 
 class DatabaseListView(DatabaseMixin, ListView):
     pass
