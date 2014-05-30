@@ -31,5 +31,8 @@ class Clip(models.Model):
 
         cursor.close()
 
+        del connections.databases[alias]
+        del connections[alias]
+
         return (result, result_description)
 

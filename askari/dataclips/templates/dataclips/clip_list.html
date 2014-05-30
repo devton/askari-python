@@ -1,0 +1,9 @@
+<ul>
+  {% for resource in object_list %}
+  <li>
+    <a href="{% url 'dataclips:edit' pk=resource.pk %}">{{ resource.name }}</a>
+    <a href="{% url 'dataclips:delete' pk=resource.pk %}">delete</a>
+  </li>
+  {% endfor %}
+</ul>
+<a href="{% url 'dataclips:new' %}">Adicionar novo clip</a>
