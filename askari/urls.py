@@ -14,5 +14,6 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-    url(r'^databases/', include('askari.databases.urls', namespace="databases"))
+    url(r'^databases/', include('askari.databases.urls', namespace="databases")),
+    url(r'^dataclips/', include('askari.dataclips.urls', namespace="dataclips")),
 )

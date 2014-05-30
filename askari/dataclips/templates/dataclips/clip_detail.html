@@ -1,0 +1,28 @@
+<h1>{{ object }}</h1>
+<div style="witdh: 100%; background: #ececec;">{{ object.sql_query }}</div>
+<br/>
+<br/>
+{% with object.exec_query as exec_query %}
+<table>
+  <thead>
+    <tr>
+      {% for header in exec_query.1 %}
+      <th>
+        {{ header.name }}
+      </th>
+      {% endfor %}
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for row in exec_query.0 %}
+      <tr>
+      {% for column in row %}
+        <td>{{ column }}</td>
+      {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+{% endwith %}

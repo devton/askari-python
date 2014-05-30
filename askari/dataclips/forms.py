@@ -1,3 +1,7 @@
 from django import forms
+from .models import Clip
 
-# place form definition here
+class ClipForm(forms.ModelForm):
+    class Meta:
+        model = Clip
+
