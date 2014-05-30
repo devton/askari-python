@@ -12,7 +12,7 @@ class Database(models.Model):
     name = models.CharField(max_length=60)
     host = models.CharField(max_length=255)
     user = models.CharField(max_length=255)
-    password = models.CharField(max_length=255)
+    password = models.CharField(max_length=255, blank=True)
     engine = models.CharField(max_length=255, choices=ENGINE_CHOICES)
 
     def __unicode__(self):
