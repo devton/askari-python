@@ -1,6 +1,6 @@
 <ul>
   {% for resource in object_list %}
-    <li>{{ resource.name }}</li>
+  <li><a href="{% url 'databases:edit' object_id=resource.pk %}">{{ resource.name }}</a></li>
   {% endfor %}
 </ul>
 <a href="{% url 'databases:new' %}">Adicionar nova database</a>
