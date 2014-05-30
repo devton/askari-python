@@ -10,6 +10,7 @@ class Database(models.Model):
     )
 
     name = models.CharField(max_length=60)
+    db_name = models.CharField(max_length=255)
     host = models.CharField(max_length=255)
     user = models.CharField(max_length=255)
     password = models.CharField(max_length=255, blank=True)
