@@ -10,8 +10,8 @@ class DatabaseMixin(LoginRequiredViewMixin):
     model = Database
 
     def get_queryset(self):
-      qs = super(DatabaseMixin, self).get_queryset()
-      return qs.filter(user_id=self.request.user.pk)
+        qs = super(DatabaseMixin, self).get_queryset()
+        return qs & self.request.user.databases()
 
 
 class DatabaseFormMixin(DatabaseMixin):
