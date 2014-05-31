@@ -11,10 +11,11 @@ class Database(models.Model):
 
     name = models.CharField(max_length=60)
     db_name = models.CharField(max_length=255)
-    host = models.CharField(max_length=255)
-    user = models.CharField(max_length=255)
-    password = models.CharField(max_length=255, blank=True)
-    engine = models.CharField(max_length=255, choices=ENGINE_CHOICES)
+    db_host = models.CharField(max_length=255)
+    db_user = models.CharField(max_length=255)
+    db_password = models.CharField(max_length=255, blank=True)
+    db_engine = models.CharField(max_length=255, choices=ENGINE_CHOICES)
+    user = models.ForeignKey('auth.User')
 
     def __unicode__(self):
         return self.name

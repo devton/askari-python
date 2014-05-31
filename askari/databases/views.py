@@ -8,6 +8,9 @@ from .forms import DatabaseForm
 
 class DatabaseMixin(LoginRequiredViewMixin):
     model = Database
+    def get_queryset(self):
+      qs = super(DatabaseMixin, self).get_queryset()
+      return qs.filter(user_id=self.request.user.pk)
 
 
 class DatabaseFormMixin(DatabaseMixin):
@@ -18,7 +21,9 @@ class DatabaseFormMixin(DatabaseMixin):
 
 
 class DatabaseCreateView(DatabaseFormMixin, CreateView):
-    pass
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(DatabaseCreateView, self).form_valid(form)
 
 
 class DatabaseUpdateView(DatabaseFormMixin, UpdateView):

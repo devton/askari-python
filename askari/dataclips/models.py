@@ -15,9 +15,9 @@ class Clip(models.Model):
         connections.databases[alias] = {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': self.database.db_name,
-            'USER': self.database.user,
-            'PASSWORD': self.database.password,
-            'HOST': self.database.host,
+            'USER': self.database.db_user,
+            'PASSWORD': self.database.db_password,
+            'HOST': self.database.db_host,
             'PORT': '',
         }
 
