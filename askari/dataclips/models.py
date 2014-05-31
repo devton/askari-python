@@ -24,7 +24,8 @@ class Clip(models.Model):
         conn = connections[alias]
 
         cursor = conn.cursor()
-        cursor.execute(self.sql_query)
+        sql = "select root_query.* from ({}) as root_query limit 10000".format(self.sql_query)
+        cursor.execute(sql)
 
         result_description = cursor.description
         result = cursor.fetchall()
