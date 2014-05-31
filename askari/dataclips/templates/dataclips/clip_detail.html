@@ -2,6 +2,9 @@
 <div style="witdh: 100%; background: #ececec;">{{ object.sql_query }}</div>
 <br/>
 <br/>
+<h4>Total de linhas {{ object.exec_query.0|length }}</h4>
+<br/>
+<br/>
 {% with object.exec_query as exec_query %}
 <table>
   <thead>

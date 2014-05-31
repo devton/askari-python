@@ -7,6 +7,11 @@ from .models import Clip
 class ClipMixin(object):
     model = Clip
 
+    def get_queryset(self):
+      qs = super(ClipMixin, self).get_queryset()
+      return qs.filter(database__user_id=self.request.user.pk)
+
+
 
 class ClipFormMixin(ClipMixin):
     form_class = ClipForm
