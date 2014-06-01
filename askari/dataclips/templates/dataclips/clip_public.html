@@ -1,0 +1,26 @@
+<h4>Total de linhas {{ object.exec_query.0|length }}</h4>
+<br/>
+{% with object.exec_query as exec_query %}
+<table>
+  <thead>
+    <tr>
+      {% for header in exec_query.1 %}
+      <th>
+        {{ header.name }}
+      </th>
+      {% endfor %}
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for row in exec_query.0 %}
+      <tr>
+      {% for column in row %}
+        <td>{{ column }}</td>
+      {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+{% endwith %}

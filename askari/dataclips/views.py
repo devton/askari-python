@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.core.urlresolvers import reverse
 from ..core.mixins import LoginRequiredViewMixin
 from .forms import ClipForm
@@ -35,3 +35,8 @@ class ClipUpdateView(ClipFormMixin, UpdateView):
 class ClipDeleteView(ClipFormMixin, DeleteView):
     def get_success_url(self):
         return reverse('dataclips:list')
+
+
+class ClipPublicView(DetailView):
+    model = Clip
+    template_name = "dataclips/clip_public.html"
