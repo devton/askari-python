@@ -1,7 +1,7 @@
 # Create your views here.
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse
-from ..core.views import LoginRequiredViewMixin
+from ..core.mixins import LoginRequiredViewMixin
 from .models import Database
 from .forms import DatabaseForm
 
