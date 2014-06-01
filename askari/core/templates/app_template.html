@@ -67,18 +67,23 @@
                     </div>
 
                     <ul class="sidebar-menu">
-                        <li class="active">
-                            <a href="{% url 'core:dashboard' %}">
+                        {% url 'core:dashboard' as dashboard_url %}
+                        <li {% if request.path == dashboard_url %} class="active" {% endif %}>
+                            <a href="{{ dashboard_url }}">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="{% url 'databases:list' %}">
+
+                        {% url 'databases:list' as databases_url %}
+                        <li {% if request.path == databases_url %} class="active" {% endif %}>
+                            <a href="{{ databases_url }}">
                                 <i class="fa fa-gears"></i> <span>Meus bancos</span> <small class="badge pull-right bg-green">{{ user.databases|length }}</small>
                             </a>
                         </li>
-                        <li>
-                            <a href="{% url 'dataclips:list' %}">
+
+                        {% url 'datablips:list' as dataclips_url %}
+                        <li {% if request.path == dataclips_url %} class="active" {% endif %}>
+                            <a href="{{ dataclips_url }}">
                                 <i class="fa fa-th"></i> <span>Dataclips</span> <small class="badge pull-right bg-green">{{ user.clips|length }}</small>
                             </a>
                         </li>

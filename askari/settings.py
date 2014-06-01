@@ -1,4 +1,8 @@
 # Django settings for askari project.
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+
+
+TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.request',)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
