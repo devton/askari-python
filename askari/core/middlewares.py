@@ -1,4 +1,4 @@
-from .models import ProxyUser
+from .proxies import ProxyUser
 
 
 class ProxyUserMiddleware():

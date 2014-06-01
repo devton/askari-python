@@ -1,4 +1,3 @@
-from django.db import models
 from django.contrib.auth.models import User
 from ..databases.models import Database
 from ..dataclips.models import Clip
