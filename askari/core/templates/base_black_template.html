@@ -1,18 +1,17 @@
 {% load bootstrap3 %}
-{% load staticfiles %}
 
 <!DOCTYPE html>
-<html>
+<html class="bg-black">
     <head lang="en">
         {% include "head_template.html" %}
-    
+
         <title>
             {% block title %}
                 Askari
             {% endblock %}
         </title>
     </head>
-    <body>
+    <body class="bg-black">
         <div id="main_content">
             {% block main_content %}{% endblock %}
         </div>
