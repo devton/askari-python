@@ -1,26 +1,49 @@
-<h4>Total de linhas {{ object.exec_query.0|length }}</h4>
-<br/>
-{% with object.exec_query as exec_query %}
-<table>
-  <thead>
-    <tr>
-      {% for header in exec_query.1 %}
-      <th>
-        {{ header.name }}
-      </th>
-      {% endfor %}
-    </tr>
-  </thead>
+{% extends "base_clean_template.html" %}
+{% load bootstrap3 %}
 
-  <tbody>
-    {% for row in exec_query.0 %}
-      <tr>
-      {% for column in row %}
-        <td>{{ column }}</td>
-      {% endfor %}
-      </tr>
-    {% endfor %}
-  </tbody>
+{% block title %} Askari | {{ object.name }} {% endblock %}
 
-</table>
-{% endwith %}
+{% block main_content %}
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+
+                    <div class="box-header">
+                        <div class="box-title">
+                            <h3>{{ object.name }}</h3>
+                            <h5>Total de linhas {{ object.exec_query.0|length }}</h5>
+                        </div>
+                    </div>
+
+                    {% with object.exec_query as exec_query %}
+                        <div class="box-body table-responsive">
+                            <table class="table table-bordered table-hover dataTable">
+                              <thead>
+                                <tr>
+                                  {% for header in exec_query.1 %}
+                                  <th>
+                                    {{ header.name }}
+                                  </th>
+                                  {% endfor %}
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                {% for row in exec_query.0 %}
+                                  <tr>
+                                  {% for column in row %}
+                                    <td>{{ column }}</td>
+                                  {% endfor %}
+                                  </tr>
+                                {% endfor %}
+                              </tbody>
+
+                            </table>
+                        </div>
+                    {% endwith %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
