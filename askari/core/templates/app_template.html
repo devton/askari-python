@@ -81,7 +81,7 @@
                             </a>
                         </li>
 
-                        {% url 'datablips:list' as dataclips_url %}
+                        {% url 'dataclips:list' as dataclips_url %}
                         <li {% if request.path == dataclips_url %} class="active" {% endif %}>
                             <a href="{{ dataclips_url }}">
                                 <i class="fa fa-th"></i> <span>Dataclips</span> <small class="badge pull-right bg-green">{{ user.clips|length }}</small>
