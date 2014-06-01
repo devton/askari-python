@@ -1,0 +1,107 @@
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        {% include "head_template.html" %}
+
+        <title>
+            {% block title %}
+                Askari
+            {% endblock %}
+        </title>
+    </head>
+    <body class="wysihtml5-supported pace-done skin-blue">
+
+        <header class="header">
+            <a href="{% url 'core:dashboard' %}" class="logo">
+                Askari
+            </a>
+
+            <nav class="navbar navbar-static-top" role="navigation">
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+
+                <div class="navbar-right">
+
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <span>{{ user }} <i class="caret"></i></span>
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{% url 'core:logout' %}">Sair</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            </nav>
+
+        </header>
+
+
+        <div id="main_content" class="wrapper row-offcanvas row-offcanvas-left">
+            <aside class="left-side sidebar-offcanvas" style="min-height: 2034px;">
+
+                <section class="sidebar">
+
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <img src="img/avatar3.png" class="img-circle" alt="User Image">
+                        </div>
+                        <div class="pull-left info">
+                            <p>Olá, {{ user }}</p>
+
+                            <a href="{% url 'core:logout' %}"><i class="fa fa-circle text-red"></i> Sair</a>
+                        </div>
+                    </div>
+
+                    <ul class="sidebar-menu">
+                        <li class="active">
+                            <a href="{% url 'core:dashboard' %}">
+                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'databases:list' %}">
+                                <i class="fa fa-gears"></i> <span>Meus bancos</span> <small class="badge pull-right bg-green">{{ user.databases|length }}</small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'dataclips:list' %}">
+                                <i class="fa fa-th"></i> <span>Dataclips</span> <small class="badge pull-right bg-green">{{ user.clips|length }}</small>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-bar-chart-o"></i>
+                                <span>Charts</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="pages/charts/morris.html" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Morris</a></li>
+                                <li><a href="pages/charts/flot.html" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Flot</a></li>
+                                <li><a href="pages/charts/inline.html" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Inline charts</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </section>
+
+            </aside>
+            <aside class="right-side">
+                {% block main_content %}{% endblock %}
+            </aside>
+        </div>
+    </body>
+</html>

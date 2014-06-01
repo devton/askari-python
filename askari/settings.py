@@ -164,4 +164,4 @@ LOGGING = {
 
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
-LOGIN_REDIRECT_URL = '/dataclips/'
+LOGIN_REDIRECT_URL = '/dashboard/'

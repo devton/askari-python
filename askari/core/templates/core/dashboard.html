@@ -1,0 +1,60 @@
+{% extends 'app_template.html' %}
+
+{% block main_content %}
+    <section class="content-header">
+        <h1>
+            Dashboard
+            <small>Inicio</small>
+        </h1>
+{#        <ol class="breadcrumb">#}
+{#            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>#}
+{#            <li class="active">Dashboard</li>#}
+{#        </ol>#}
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>
+                            {{ user.databases|length }}
+                        </h3>
+                        <p>
+                            Banco de dados
+                        </p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-gear-a"></i>
+                    </div>
+                    <a href="{% url 'databases:list' %}" class="small-box-footer">
+                        Ver todos <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>
+                            {{ user.clips|length }}
+                        </h3>
+                        <p>
+                            Dataclips
+                        </p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-clipboard"></i>
+                    </div>
+                    <a href="{% url 'dataclips:list' %}" class="small-box-footer">
+                        Ver todos <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+{% endblock %}
