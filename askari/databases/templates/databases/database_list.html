@@ -1,9 +1,81 @@
-<ul>
-  {% for resource in object_list %}
-  <li>
-    <a href="{% url 'databases:edit' pk=resource.pk %}">{{ resource.name }}</a>
-    <a href="{% url 'databases:delete' pk=resource.pk %}">delete</a>
-  </li>
-  {% endfor %}
-</ul>
-<a href="{% url 'databases:new' %}">Adicionar nova database</a>
+{% extends 'app_template.html' %}
+
+{% block main_content %}
+
+    <section class="content-header">
+        <h1>
+            Banco de dados
+            <small>listagem</small>
+        </h1>
+
+        <div class="pull-right">
+            <a href="{% url 'databases:new' %}" class="btn btn-success" style="margin-top: -55px;">
+                <i class="fa fa-plus"></i>
+                &nbsp;&nbsp;
+                <strong>Adicionar</strong>
+            </a>
+        </div>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-xs-12">
+
+                <div class="box">
+
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Database</th>
+                                    <th>Host</th>
+                                    <th>Tipo</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for resource in object_list %}
+                                    <tr>
+                                        <td>{{ resource.name }}</td>
+                                        <td>{{ resource.db_name }}</td>
+                                        <td>{{ resource.db_host }}</td>
+                                        <td><span class="label label-info">{{ resource.db_engine }}</span></td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a data-toggle="tooltip" data-placement="top" title="Editar" href="{% url 'databases:edit' pk=resource.pk %}" class="btn btn-default btn-sm">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a data-toggle="tooltip" data-placement="top" title="Apagar" href="{% url 'databases:delete' pk=resource.pk %}" class="btn btn-default btn-sm">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+{% endblock %}
+
+{#    <ul>#}
+{#      {% for resource in object_list %}#}
+{#      <li>#}
+{#        <a href="{% url 'databases:edit' pk=resource.pk %}">{{ resource.name }}</a>#}
+{#        <a href="{% url 'databases:delete' pk=resource.pk %}">delete</a>#}
+{#      </li>#}
+{#      {% endfor %}#}
+{#    </ul>#}
+{#    <a href="{% url 'databases:new' %}">Adicionar nova database</a>#}
