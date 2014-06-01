@@ -1,0 +1,24 @@
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+
+        {% bootstrap_css %}
+        {% bootstrap_javascript jquery=1 %}
+        <link rel="stylesheet" href="{% static 'css/core.css' %}"/>
+
+        <title>
+            {% block title %}
+                Askari
+            {% endblock %}
+        </title>
+    </head>
+    <body>
+        <div id="main_content">
+            {% block main_content %}{% endblock %}
+        </div>
+    </body>
+</html>
