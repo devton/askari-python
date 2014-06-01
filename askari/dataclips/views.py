@@ -1,10 +1,11 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse
+from ..core.views import LoginRequiredViewMixin
 from .forms import ClipForm
 from .models import Clip
 
 
-class ClipMixin(object):
+class ClipMixin(LoginRequiredViewMixin):
     model = Clip
 
     def get_queryset(self):
