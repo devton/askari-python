@@ -1,5 +1,35 @@
-<form action="" method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type='submit'>Salvar</button>
-</form>
+{% extends 'app_template.html' %}
+{% load bootstrap3 %}
+
+{% block main_content %}
+    <section class="content-header">
+        <h1>
+            Banco de dados
+            <small>Cadastro</small>
+        </h1>
+
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+
+                <div class="box">
+                    <form action="" method="POST">
+                        <div class="box-body">
+                            {% csrf_token %}
+                            {% bootstrap_form form %}
+                        </div>
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
