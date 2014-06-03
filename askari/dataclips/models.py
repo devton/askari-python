@@ -1,10 +1,12 @@
 from django.db import models, connections
-
+from django.db.models.signals import pre_save
+from .signals import ClipObserver
 
 class Clip(models.Model):
     name = models.CharField(max_length=255)
     sql_query = models.TextField()
     database = models.ForeignKey('databases.Database')
+    slug = models.SlugField()
 
     def __unicode__(self):
         return self.name
@@ -37,3 +39,5 @@ class Clip(models.Model):
 
         return (result, result_description)
 
+
+pre_save.connect(ClipObserver.pre_save, sender=Clip)

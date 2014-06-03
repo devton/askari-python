@@ -10,7 +10,7 @@ class ClipMixin(LoginRequiredViewMixin):
 
     def get_queryset(self):
         qs = super(ClipMixin, self).get_queryset()
-        return qs & self.request.user.clips()
+        return qs & Clip.objects.filter(database__user__pk=self.request.user.pk)
 
 
 class ClipFormMixin(ClipMixin):
