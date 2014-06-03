@@ -1,17 +1,17 @@
 # Create your views here.
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse
-from ..core.mixins import LoginRequiredViewMixin
+from ..core.mixins import LoginRequiredViewMixin, GenericTemplateDataMixin
 from .models import Database
 from .forms import DatabaseForm
 
 
-class DatabaseMixin(LoginRequiredViewMixin):
+class DatabaseMixin(GenericTemplateDataMixin, LoginRequiredViewMixin):
     model = Database
 
     def get_queryset(self):
         qs = super(DatabaseMixin, self).get_queryset()
-        return qs & self.request.user.databases()
+        return qs & self.request.user.database_set.all()
 
 
 class DatabaseFormMixin(DatabaseMixin):
