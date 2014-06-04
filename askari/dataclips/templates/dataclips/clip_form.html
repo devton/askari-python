@@ -1,5 +1,41 @@
-<form action="" method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type='submit'>Salvar</button>
-</form>
+{% extends 'app_template.html' %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+{% block custom_scripts %}
+    <script src="//d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js"></script>
+    <script type="text/javascript" src="{% static 'js/clip_form.js' %}"></script>
+{% endblock %}
+
+{% block main_content %}
+    <section class="content-header">
+        <h1>
+            Dataclips
+            <small>Novo</small>
+        </h1>
+
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+
+                <div class="box">
+                    <form action="" method="POST" novalidate>
+                        <div class="box-body">
+                            {% csrf_token %}
+                            {% bootstrap_form form %}
+                        </div>
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

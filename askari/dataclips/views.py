@@ -1,12 +1,12 @@
 from django.contrib import messages
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.core.urlresolvers import reverse
-from ..core.mixins import LoginRequiredViewMixin
+from ..core.mixins import LoginRequiredViewMixin, GenericTemplateDataMixin
 from .forms import ClipForm
 from .models import Clip
 
 
-class ClipMixin(LoginRequiredViewMixin):
+class ClipMixin(GenericTemplateDataMixin, LoginRequiredViewMixin):
     model = Clip
 
     def get_queryset(self):
@@ -41,7 +41,7 @@ class ClipUpdateView(ClipFormMixin, UpdateView):
             executed_sql = None
             messages.add_message(self.request, messages.ERROR, "{}".format(error))
 
-        context_data = { 'sql_exec': executed_sql, }
+        context_data = {'sql_exec': executed_sql}
 
         context.update(context_data)
         return context
