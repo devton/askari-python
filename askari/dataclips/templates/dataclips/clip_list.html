@@ -1,10 +1,64 @@
-<ul>
-  {% for resource in object_list %}
-  <li>
-    <a href="{% url 'dataclips:edit' pk=resource.pk %}">{{ resource.name }}</a>
-    <a href="{% url 'dataclips:public' slug=resource.slug %}">public</a>
-  <a href="{% url 'dataclips:delete' pk=resource.pk %}">delete</a>
-  </li>
-  {% endfor %}
-</ul>
-<a href="{% url 'dataclips:new' %}">Adicionar novo clip</a>
+{% extends 'app_template.html' %}
+{% block main_content %}
+        <section class="content-header">
+        <h1>
+            Dataclips
+            <small>listagem</small>
+        </h1>
+
+        <div class="pull-right">
+            <a href="{% url 'dataclips:new' %}" class="btn btn-success" style="margin-top: -55px;">
+                <i class="fa fa-plus"></i>
+                &nbsp;&nbsp;
+                <strong>Adicionar</strong>
+            </a>
+        </div>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-xs-12">
+
+                <div class="box">
+
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Database</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for resource in object_list %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'dataclips:edit' pk=resource.pk %}">{{ resource.name }}</a>
+                                        </td>
+                                        <td>
+                                            {{ resource.database }}
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a data-toggle="tooltip" data-placement="top" title="Editar" href="{% url 'dataclips:edit' pk=resource.pk %}" class="btn btn-default btn-sm">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a data-toggle="tooltip" data-placement="top" title="Apagar" href="{% url 'dataclips:delete' pk=resource.pk %}" class="btn btn-default btn-sm">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {%  endfor %}
+                            </tbody>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
