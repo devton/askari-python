@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.core.urlresolvers import reverse
 from ..core.mixins import LoginRequiredViewMixin
@@ -30,6 +31,21 @@ class ClipCreateView(ClipFormMixin, CreateView):
 
 class ClipUpdateView(ClipFormMixin, UpdateView):
     template_name = "dataclips/clip_update_and_show.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ClipUpdateView, self).get_context_data(**kwargs)
+
+        try:
+            executed_sql = self.object.exec_query()
+        except Exception as error:
+            executed_sql = None
+            messages.add_message(self.request, messages.ERROR, "{}".format(error))
+
+        context_data = { 'sql_exec': executed_sql, }
+
+        context.update(context_data)
+        return context
+
 
 
 class ClipDeleteView(ClipFormMixin, DeleteView):

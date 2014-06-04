@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.db import models, connections
 from django.db.models.signals import pre_save
 from .signals import ClipObserver

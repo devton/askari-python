@@ -1,3 +1,6 @@
+{% load bootstrap3 %}
+{% bootstrap_messages %}
+
 <form action="" method="POST">
   {% csrf_token %}
   {{ form.as_p }}
@@ -5,29 +8,32 @@
 </form>
 
 <hr/>
-<h4>Total de linhas {{ object.exec_query.0|length }}</h4>
-<br/>
-{% with object.exec_query as exec_query %}
-<table>
-  <thead>
-    <tr>
-      {% for header in exec_query.1 %}
-      <th>
-        {{ header.name }}
-      </th>
-      {% endfor %}
-    </tr>
-  </thead>
 
-  <tbody>
-    {% for row in exec_query.0 %}
-      <tr>
-      {% for column in row %}
-        <td>{{ column }}</td>
-      {% endfor %}
-      </tr>
-    {% endfor %}
-  </tbody>
+{% if sql_exec %}
+    <h4>Total de linhas {{ sql_exec.0|length }}</h4>
+    <br/>
+    {% with sql_exec as exec_query %}
+        <table>
+          <thead>
+            <tr>
+              {% for header in exec_query.1 %}
+              <th>
+                {{ header.name }}
+              </th>
+              {% endfor %}
+            </tr>
+          </thead>
 
-</table>
-{% endwith %}
+          <tbody>
+            {% for row in exec_query.0 %}
+              <tr>
+              {% for column in row %}
+                <td>{{ column }}</td>
+              {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+
+        </table>
+    {% endwith %}
+{% endif %}
