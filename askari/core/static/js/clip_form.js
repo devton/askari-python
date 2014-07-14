@@ -16,7 +16,7 @@ $(function(){
 
         var editor = ace.edit(editDiv[0]);
         editor.renderer.setShowGutter(true);
-        
+
         editor.getSession().setUseWrapMode(true);
         editor.getSession().setValue(textarea.val());
         editor.getSession().setMode("ace/mode/sql");
