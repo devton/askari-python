@@ -10,14 +10,16 @@ class LoginRequiredViewMixin(object):
         return super(LoginRequiredViewMixin, self).dispatch(*args, **kwargs)
 
 
-class GenericTemplateDataMixin(object):
+class GenericTemplateDataMixin(LoginRequiredViewMixin):
     def get_context_data(self, **kwargs):
-        context = super(GenericTemplateDataMixin, self).get_context_data(**kwargs)
+        c = super(GenericTemplateDataMixin, self).get_context_data(**kwargs)
+        clips = Clip.objects.filter(database__user__pk=self.request.user.pk)
+        databases = Database.objects.filter(user__pk=self.request.user.pk)
 
         generic_data = {
-            'total_clips': Clip.objects.filter(database__user__pk=self.request.user.pk).count(),
-            'total_bases': Database.objects.filter(user__pk=self.request.user.pk).count()
+            'total_clips': clips.count(),
+            'total_bases': databases.count()
         }
 
-        context.update(generic_data)
-        return context
+        c.update(generic_data)
+        return c
