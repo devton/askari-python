@@ -1,5 +1,5 @@
 from django.db import models
-from ..dataclips.models import Clip
+
 
 class Database(models.Model):
     ENGINE_CHOICE_MYSQL = ('mysql', 'MySQL')
@@ -20,10 +20,3 @@ class Database(models.Model):
 
     def __unicode__(self):
         return self.name
-
-    def dataclips(self):
-        """
-            Get a list of dataclips from the database
-        """
-        return Clip.objects.filter(database__pk=self.pk)
-
