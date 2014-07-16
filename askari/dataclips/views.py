@@ -1,7 +1,9 @@
 from django.contrib import messages
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import (ListView, CreateView, UpdateView,
+                                  DeleteView, DetailView)
 from django.core.urlresolvers import reverse
 from ..core.mixins import LoginRequiredViewMixin, GenericTemplateDataMixin
+from ..core.tags.utils import apply_tags
 from .forms import ClipForm
 from .models import Clip
 
@@ -11,7 +13,8 @@ class ClipMixin(GenericTemplateDataMixin, LoginRequiredViewMixin):
 
     def get_queryset(self):
         qs = super(ClipMixin, self).get_queryset()
-        return qs & Clip.objects.filter(database__user__pk=self.request.user.pk)
+        clips = Clip.objects.filter(database__user__pk=self.request.user.pk)
+        return qs & clips
 
 
 class ClipFormMixin(ClipMixin):
@@ -19,6 +22,10 @@ class ClipFormMixin(ClipMixin):
 
     def get_success_url(self):
         return reverse('dataclips:edit', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        apply_tags(form.instance, form.cleaned_data.get('tags'))
+        return super(ClipFormMixin, self).form_valid(form)
 
 
 class ClipListView(ClipMixin, ListView):
@@ -39,13 +46,14 @@ class ClipUpdateView(ClipFormMixin, UpdateView):
             executed_sql = self.object.exec_query()
         except Exception as error:
             executed_sql = None
-            messages.add_message(self.request, messages.ERROR, "{}".format(error))
+            messages.add_message(self.request, 
+                                 messages.ERROR, 
+                                 "{}".format(error))
 
         context_data = {'sql_exec': executed_sql}
 
         context.update(context_data)
         return context
-
 
 
 class ClipDeleteView(ClipFormMixin, DeleteView):

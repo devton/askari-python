@@ -27,7 +27,7 @@ class Clip(models.Model):
         conn = connections[alias]
 
         cursor = conn.cursor()
-        sql = "select * from ({}) limit 10000".format(self.sql_query)
+        sql = "select _.* from ({}) as _ limit 10000".format(self.sql_query)
         cursor.execute(sql)
 
         result_description = cursor.description
