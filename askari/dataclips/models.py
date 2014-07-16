@@ -1,7 +1,7 @@
-from django.contrib import messages
 from django.db import models, connections
 from django.db.models.signals import pre_save
-from .signals import ClipObserver
+from .signals import ClipSignal
+
 
 class Clip(models.Model):
     name = models.CharField(max_length=255)
@@ -27,7 +27,7 @@ class Clip(models.Model):
         conn = connections[alias]
 
         cursor = conn.cursor()
-        sql = "select root_query.* from ({}) as root_query limit 10000".format(self.sql_query)
+        sql = "select * from ({}) limit 10000".format(self.sql_query)
         cursor.execute(sql)
 
         result_description = cursor.description
@@ -41,4 +41,4 @@ class Clip(models.Model):
         return (result, result_description)
 
 
-pre_save.connect(ClipObserver.pre_save, sender=Clip)
+pre_save.connect(ClipSignal.pre_save, sender=Clip)
