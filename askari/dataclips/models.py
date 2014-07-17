@@ -27,9 +27,9 @@ class Clip(Tagged):
         cache.delete(self.cache_key())
 
         r = self.format_query_result()
-        dump = marshal.dumps({'rows': r['rows'], 'columns': r['cols']})
+        dump = marshal.dumps({'rows': r['rows'], 'cols': r['cols']})
 
-        return cache.set(self.cache_key(), dump)
+        return cache.set(self.cache_key(), dump, 50000)
 
     def exec_query(self):
         alias = 'databases_{}'.format(self.pk)
