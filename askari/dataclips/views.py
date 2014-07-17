@@ -4,6 +4,7 @@ from django.views.generic import (ListView, CreateView, UpdateView,
 from django.core.urlresolvers import reverse
 from ..core.mixins import LoginRequiredViewMixin, GenericTemplateDataMixin
 from ..core.tags.utils import apply_tags
+from .filters import ClipFilter
 from .forms import ClipForm
 from .models import Clip
 
@@ -29,7 +30,14 @@ class ClipFormMixin(ClipMixin):
 
 
 class ClipListView(ClipMixin, ListView):
-    pass
+    def get_context_data(self, **kwargs):
+        context = super(ClipListView, self).get_context_data(**kwargs)
+        f = ClipFilter(self.request.GET, queryset=self.get_queryset())
+
+        context_data = {'filter': f, 'object_list': f.qs}
+        context.update(context_data)
+
+        return context
 
 
 class ClipCreateView(ClipFormMixin, CreateView):
