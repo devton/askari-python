@@ -26,7 +26,7 @@ class Clip(Tagged):
     def dump_query(self):
         cache.delete(self.cache_key())
 
-        r = self.format_query_result()
+        r = self.exec_query()
         dump = marshal.dumps({'rows': r['rows'], 'cols': r['cols']})
 
         return cache.set(self.cache_key(), dump, 50000)

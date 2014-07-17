@@ -22,6 +22,8 @@ class ClipSignal(object):
             instance.slug = hash.hexdigest()
 
         # Create a cache from exec query
-        instance.exec_query()
-        instance.dump_query()
+        try:
+            instance.dump_query()
+        except Exception:
+            pass
 
