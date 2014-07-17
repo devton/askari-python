@@ -1,9 +1,10 @@
 from django.db import models, connections
 from django.db.models.signals import pre_save
 from .signals import ClipSignal
+from ..core.tags.models import Tagged
 
 
-class Clip(models.Model):
+class Clip(Tagged):
     name = models.CharField(max_length=255)
     sql_query = models.TextField()
     database = models.ForeignKey('databases.Database')

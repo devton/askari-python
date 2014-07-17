@@ -3,7 +3,6 @@ from django.views.generic import (ListView, CreateView, UpdateView,
                                   DeleteView, DetailView)
 from django.core.urlresolvers import reverse
 from ..core.mixins import LoginRequiredViewMixin, GenericTemplateDataMixin
-from ..core.tags.utils import apply_tags
 from .filters import ClipFilter
 from .forms import ClipForm
 from .models import Clip
@@ -24,9 +23,8 @@ class ClipFormMixin(ClipMixin):
     def get_success_url(self):
         return reverse('dataclips:edit', kwargs={'pk': self.object.pk})
 
-    def form_valid(self, form):
-        apply_tags(form.instance, form.cleaned_data.get('tags'))
-        return super(ClipFormMixin, self).form_valid(form)
+    # def form_valid(self, form):
+    #     return super(ClipFormMixin, self).form_valid(form)
 
 
 class ClipListView(ClipMixin, ListView):
