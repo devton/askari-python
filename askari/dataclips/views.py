@@ -49,7 +49,7 @@ class ClipUpdateView(ClipFormMixin, UpdateView):
         context = super(ClipUpdateView, self).get_context_data(**kwargs)
 
         try:
-            executed_sql = self.object.exec_query()
+            executed_sql = self.object.query_result()
         except Exception as error:
             executed_sql = None
             messages.add_message(self.request, 

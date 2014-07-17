@@ -1,3 +1,5 @@
+import marshal
+from django.core.cache import cache
 from django.db import models, connections
 from django.db.models.signals import pre_save
 from .signals import ClipSignal
@@ -12,6 +14,22 @@ class Clip(Tagged):
 
     def __unicode__(self):
         return self.name
+
+    def cache_key(self):
+        return u"dataclips_{}".format(self.pk)
+
+    def query_result(self):
+        cached = cache.get(self.cache_key())
+        if cached:
+            return marshal.loads(cached)
+
+    def dump_query(self):
+        cache.delete(self.cache_key())
+
+        r = self.format_query_result()
+        dump = marshal.dumps({'rows': r['rows'], 'columns': r['cols']})
+
+        return cache.set(self.cache_key(), dump)
 
     def exec_query(self):
         alias = 'databases_{}'.format(self.pk)
@@ -39,7 +57,26 @@ class Clip(Tagged):
         del connections.databases[alias]
         del connections[alias]
 
-        return (result, result_description)
+        self._query_result = (result, result_description)
+        return self.format_query_result()
+
+    def format_query_result(self):
+        result = self._query_result
+
+        # Create a array with all query result values
+        row_details = []
+        for item in result[0]:
+            values = []
+            for value in item:
+                values.append(value)
+            row_details.append(values)
+
+        # Create a awway with all query result columns
+        col_details = []
+        for item in result[1]:
+            col_details.append(item.name)
+
+        return {'rows': row_details, 'cols': col_details}
 
 
 pre_save.connect(ClipSignal.pre_save, sender=Clip)
