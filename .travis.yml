@@ -12,8 +12,8 @@ before_script:
   - python manage.py syncdb --migrate --noinput
 script:
   - coverage run --source=askari manage.py test
-  - python manage.py test askari
+  - coverage report -m
 after_success:
-  - coveralls
+  - coveralls --verbose
 
 
