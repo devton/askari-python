@@ -8,13 +8,11 @@ install:
   - pip install -r askari/requirements_dev.txt
   - pip install coveralls
 before_script:
-  - psql -c 'create database askari_example;' -U postgres
-  - cp askari/local_settings.py.example askari/local_settings.py
-  - sed -i -e 's/getpass\.getuser()/\"postgres\"/g' askari/local_settings.py
-  - python manage.py syncdb --noinput --settings=askari.local_settings
+  - psql -c 'create database askari_development;' -U postgres
+  - python manage.py syncdb --migrate --noinput
 script:
   - coverage run
-  - python manage.py test askari --settings=askari.local_settings
+  - python manage.py test askari
 after_success:
   - coveralls
 
