@@ -17,11 +17,8 @@ class Clip(Tagged):
 
     objects = ClipScopeManager()
 
-    def __unicode__(self):
-        return self.name
-
-    def cache_key(self):
-        return u"dataclips_{}".format(self.pk)
+    __unicode__ = lambda self: self.name
+    cache_key = lambda self: u"dataclips_{}".format(self.pk)
 
     def query_result(self):
         cached = cache.get(self.cache_key())
