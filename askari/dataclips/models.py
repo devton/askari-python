@@ -22,30 +22,50 @@ class Clip(Tagged):
     __unicode__ = lambda self: self.name
     cache_key = lambda self: u"dataclips_{}".format(self.pk)
 
+    # Override class constructor to get the initial sql_query 
+    # to turn possible to make a comparsion when clip is saved
     def __init__(self, *args, **kwargs):
         super(Clip, self).__init__(*args, **kwargs)
         self.original_sql_query = self.sql_query
 
+    # Override save to set the new sql_query when changed
+    # to turn possible to make a comparsion when clip is saved
+    def save(self, *args, **kwargs):
+        super(Clip, self).save(*args, **kwargs)
+        self.original_sql_query = self.sql_query
+
     def query_result(self):
+        """
+          Return a cached clip.sql_query executed
+          suck like a:
+          {'rows': [['foo', 'bar'], ['foo']], 'cols': ['col1', 'col2']}
+        """
+
         cached = cache.get(self.cache_key())
         if cached is not None:
             return json.loads(cached)
         else:
             try:
-                self.dump_query()
+                self.__dump_query()
                 return self.query_result()
             except:
-                return self.exec_query()
+                return self.__exec_query()
 
     def dump_query(self):
+        """
+          Execute the sql query and make a cache
+          accessible using:
+          cache.get(self.cache_key())
+        """
+
         cache.delete(self.cache_key())
 
-        r = self.exec_query()
+        r = self.__exec_query()
         dump = json.dumps({'rows': r['rows'], 'cols': r['cols']})
 
         return cache.set(self.cache_key(), dump, 50000)
 
-    def exec_query(self):
+    def __exec_query(self):
         alias = 'databases_{}'.format(self.pk)
 
         connections.databases[alias] = {
@@ -71,11 +91,11 @@ class Clip(Tagged):
         del connections.databases[alias]
         del connections[alias]
 
-        self._query_result = (result, result_description)
-        return self.format_query_result()
+        self._sql_result = (result, result_description)
+        return self.__format_query_result()
 
-    def format_query_result(self):
-        result = self._query_result
+    def __format_query_result(self):
+        result = self._sql_result
 
         # Create a array with all query result values
         row_details = []
