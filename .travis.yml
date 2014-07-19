@@ -8,6 +8,7 @@ install:
   - pip install -r askari/requirements_dev.txt
   - pip install coveralls
 before_script:
+  - psql -c 'drop database askari_example;' -U postgres
   - psql -c 'create database askari_example;' -U postgres
   - cp askari/local_settings.py.example askari/local_settings.py
   - sed -i -e 's/getpass\.getuser()/\"postgres\"/g' askari/local_settings.py
