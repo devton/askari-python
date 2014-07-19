@@ -10,5 +10,5 @@ install: "pip install -r askari/requirements.txt"
 install: "pip install -r askari/requirements_dev.txt"
 
 # command to run tests
-script: python manage.py test
+script: python manage.py test askari
 
