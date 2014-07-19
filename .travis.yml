@@ -6,8 +6,8 @@ addons:
   postgresql: "9.3"
 
 # command to install dependencies
-install: "pip install -r requirements.txt"
-install: "pip install -r requirements_dev.txt"
+install: "pip install -r askari/requirements.txt"
+install: "pip install -r askari/requirements_dev.txt"
 
 # command to run tests
 script: python manage.py test
