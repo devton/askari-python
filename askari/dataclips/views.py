@@ -24,9 +24,6 @@ class ClipFormMixin(ClipMixin):
     def get_success_url(self):
         return reverse('dataclips:edit', kwargs={'pk': self.object.pk})
 
-    # def form_valid(self, form):
-    #     return super(ClipFormMixin, self).form_valid(form)
-
 
 class ClipListView(ClipMixin, ListView):
     def get_context_data(self, **kwargs):
