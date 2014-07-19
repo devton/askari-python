@@ -39,4 +39,8 @@ $(function(){
        }
     });
 
+    if($('a.sql-query-selector').length == 0){
+      startAce();
+    }
+
 });

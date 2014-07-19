@@ -45,7 +45,7 @@
                                         <td>{{ resource.db_name }}</td>
                                         <td>{{ resource.db_host }}</td>
                                         <td><span class="label label-info">{{ resource.db_engine }}</span></td>
-                                        <td><span class="label label-danger">{{ resource.dataclips|length }}</span></td>
+                                        <td><span class="label label-danger">{{ resource.clip_set.all|length }}</span></td>
                                         <td>
                                             <div class="btn-group">
                                                 <a data-toggle="tooltip" data-placement="top" title="Editar" href="{% url 'databases:edit' pk=resource.pk %}" class="btn btn-default btn-sm">

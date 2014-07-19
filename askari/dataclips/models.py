@@ -22,6 +22,11 @@ class Clip(Tagged):
         cached = cache.get(self.cache_key())
         if cached:
             return marshal.loads(cached)
+        else:
+            try:
+                return self.dump_query()
+            except:
+                return self.exec_query()
 
     def dump_query(self):
         cache.delete(self.cache_key())
@@ -68,13 +73,13 @@ class Clip(Tagged):
         for item in result[0]:
             values = []
             for value in item:
-                values.append(value)
+                values.append(unicode(value))
             row_details.append(values)
 
         # Create a awway with all query result columns
         col_details = []
         for item in result[1]:
-            col_details.append(item.name)
+            col_details.append(unicode(item.name))
 
         return {'rows': row_details, 'cols': col_details}
 
