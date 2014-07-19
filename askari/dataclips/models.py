@@ -1,4 +1,4 @@
-import marshal
+import json
 from django.core.cache import cache
 from django.db import models, connections
 from django.db.models.signals import pre_save
@@ -21,7 +21,7 @@ class Clip(Tagged):
     def query_result(self):
         cached = cache.get(self.cache_key())
         if cached:
-            return marshal.loads(cached)
+            return json.loads(cached)
         else:
             try:
                 return self.dump_query()
@@ -32,7 +32,7 @@ class Clip(Tagged):
         cache.delete(self.cache_key())
 
         r = self.exec_query()
-        dump = marshal.dumps({'rows': r['rows'], 'cols': r['cols']})
+        dump = json.dumps({'rows': r['rows'], 'cols': r['cols']})
 
         return cache.set(self.cache_key(), dump, 50000)
 
