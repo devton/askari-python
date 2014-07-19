@@ -12,25 +12,25 @@
                     <div class="box-header">
                         <div class="box-title">
                             <h3>{{ object.name }}</h3>
-                            <h5>Total de linhas {{ object.exec_query.0|length }}</h5>
+                            <h5>Total de linhas {{ object.query_result.rows|length }}</h5>
                         </div>
                     </div>
 
-                    {% with object.exec_query as exec_query %}
+                    {% with object.query_result as exec_query %}
                         <div class="box-body table-responsive">
                             <table class="table table-bordered table-hover dataTable">
                               <thead>
                                 <tr>
-                                  {% for header in exec_query.1 %}
+                                  {% for header in exec_query.cols %}
                                   <th>
-                                    {{ header.name }}
+                                    {{ header }}
                                   </th>
                                   {% endfor %}
                                 </tr>
                               </thead>
 
                               <tbody>
-                                {% for row in exec_query.0 %}
+                                {% for row in exec_query.rows %}
                                   <tr>
                                   {% for column in row %}
                                     <td>{{ column }}</td>

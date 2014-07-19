@@ -22,11 +22,12 @@ class Clip(Tagged):
 
     def query_result(self):
         cached = cache.get(self.cache_key())
-        if cached:
+        if cached is not None:
             return json.loads(cached)
         else:
             try:
-                return self.dump_query()
+                self.dump_query()
+                return self.query_result()
             except:
                 return self.exec_query()
 
