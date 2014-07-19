@@ -3,7 +3,7 @@ from model_mommy import mommy
 from .models import Clip
 
 
-class ClipTest(TestCase):
+class ClipModelTest(TestCase):
     def setUp(self):
         self.clip = mommy.make(Clip, slug='')
 
