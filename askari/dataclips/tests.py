@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+
 from ..databases.models import Database
 from .models import Clip
 

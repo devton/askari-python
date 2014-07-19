@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.views.generic import (ListView, CreateView, UpdateView,
                                   DeleteView, DetailView)
 from django.core.urlresolvers import reverse
+
 from ..core.mixins import LoginRequiredViewMixin, GenericTemplateDataMixin
 from .filters import ClipFilter
 from .forms import ClipForm
