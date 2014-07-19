@@ -17,8 +17,14 @@ class Clip(Tagged):
 
     objects = ClipScopeManager()
 
+    original_sql_query = None
+
     __unicode__ = lambda self: self.name
     cache_key = lambda self: u"dataclips_{}".format(self.pk)
+
+    def __init__(self, *args, **kwargs):
+        super(Clip, self).__init__(*args, **kwargs)
+        self.original_sql_query = self.sql_query
 
     def query_result(self):
         cached = cache.get(self.cache_key())
