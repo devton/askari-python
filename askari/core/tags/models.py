@@ -11,8 +11,7 @@ class Tag(models.Model):
 
     slug = models.SlugField(u"Slug", db_index=True, max_length=150)
 
-    def __unicode__(self):
-        return self.name
+    __unicode__ = lambda self: self.name
 
     def save(self, *args, **kwargs):
         if not self.slug:
