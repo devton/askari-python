@@ -28,6 +28,16 @@ class DatabaseViewTest(TestCase):
         self.url = reverse('databases:delete', kwargs={'pk': self.database.pk})
         self.response = self.client.delete(self.url)
 
+    def create_view_request(self):
+        self.url = reverse('databases:new')
+        self.post_attributes = {'name': u'test',
+                                'db_name': u'test',
+                                'db_host': u'test',
+                                'db_user': u'test',
+                                'db_engine': u'postgres'}
+
+        self.response = self.client.post(self.url, self.post_attributes)
+
     def test_new_view_without_login(self):
         self.new_view_request()
 
@@ -39,6 +49,22 @@ class DatabaseViewTest(TestCase):
         self.new_view_request()
 
         self.assertEqual(self.response.status_code, 200)
+
+    def test_create_view_without_login(self):
+        self.create_view_request()
+
+        self.assertEqual(self.response.status_code, 302)
+        self.assertRedirects(self.response, "/login/?next={}".format(self.url))
+
+    def test_create_view_should_add_loged_user_into_database(self):
+        self.do_login()
+
+        self.create_view_request()
+        self.assertEqual(self.response.status_code, 302)
+
+        database = Database.objects.filter(name=u'test').first()
+        self.assertIsNotNone(database)
+        self.assertEqual(self.user, database.user)
 
     def test_list_view_without_login(self):
         self.list_view_request()
