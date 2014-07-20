@@ -1,2 +1,2 @@
-# Askari [![Build Status](https://travis-ci.org/devton/askari-python.svg?branch=master)](https://travis-ci.org/devton/askari-python) [![Coverage Status](https://coveralls.io/repos/devton/askari-python/badge.png?branch=master)](https://coveralls.io/r/devton/askari-python?branch=master)
+# Askari [![Build Status](https://travis-ci.org/devton/askari-python.svg?branch=master)](https://travis-ci.org/devton/askari-python) [![Coverage Status](https://coveralls.io/repos/devton/askari-python/badge.png?branch=master)](https://coveralls.io/r/devton/askari-python?branch=master) [![Code Health](https://landscape.io/github/devton/askari-python/master/landscape.png)](https://landscape.io/github/devton/askari-python/master)
 =============
