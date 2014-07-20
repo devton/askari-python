@@ -1,5 +1,6 @@
 from model_mommy import mommy
 from django.test import TestCase
+from django.db import IntegrityError
 
 from .models import Tag
 from askari.dataclips.models import Clip
@@ -27,3 +28,7 @@ class TagTest(TestCase):
 
         self.assertIn(tag_foo, self.clip.get_tags())
         self.assertIn(tag_bar, self.clip.get_tags())
+
+    def test_unique(self):
+        with self.assertRaises(IntegrityError):
+            mommy.make(Tag, name=u'foo')
