@@ -46,9 +46,9 @@ class Clip(Tagged):
             return json.loads(cached)
         else:
             try:
-                self.__dump_query()
+                self.dump_query()
                 return self.query_result()
-            except:
+            except Exception:
                 return self.__exec_query()
 
     def dump_query(self):
