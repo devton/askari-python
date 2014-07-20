@@ -19,7 +19,6 @@ class ClipViewTest(TestCase):
 
     def test_clip_in_list_view(self):
         self.do_login()
-        self.clip.save
 
         url = reverse('dataclips:list')
         response = self.client.get(url)
