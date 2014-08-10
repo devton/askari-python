@@ -9,7 +9,7 @@
         <div class="header">Área Restrita</div>
 
 
-        <form method="post" action="" class="login-form">
+        <form method="post" action="" class="login-form" novalidate>
             <div class="body bg-gray">
                 {% csrf_token %}
                 {% bootstrap_form form %}
@@ -21,9 +21,7 @@
                     </button>
                 {% endbuttons %}
 
-                <p><a href="#">I forgot my password</a></p>
-
-                <a href="{% url 'registration' %}" class="text-center">Register a new membership</a>
+                <a href="{% url 'login' %}" class="text-center">Já sou registrado</a>
             </div>
         </form>
 

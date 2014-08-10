@@ -7,7 +7,7 @@
         </h1>
 
         <div class="pull-right">
-            <a href="{% url 'dataclips:new' %}" class="btn btn-success" style="margin-top: -55px;">
+            <a href="{% url 'dataclips:new' view.kwargs.organization %}" class="btn btn-success" style="margin-top: -55px;">
                 <i class="fa fa-plus"></i>
                 &nbsp;&nbsp;
                 <strong>Adicionar</strong>
@@ -47,17 +47,17 @@
                                 {% for resource in object_list %}
                                     <tr>
                                         <td>
-                                            <a href="{% url 'dataclips:edit' pk=resource.pk %}">{{ resource.name }}</a>
+                                            <a href="{% url 'dataclips:edit' pk=resource.pk organization=view.kwargs.organization %}">{{ resource.name }}</a>
                                         </td>
                                         <td>
                                             {{ resource.database }}
                                         </td>
                                         <td>
                                             <div class="btn-group">
-                                                <a data-toggle="tooltip" data-placement="top" title="Editar" href="{% url 'dataclips:edit' pk=resource.pk %}" class="btn btn-default btn-sm">
+                                                <a data-toggle="tooltip" data-placement="top" title="Editar" href="{% url 'dataclips:edit' pk=resource.pk organization=view.kwargs.organization %}" class="btn btn-default btn-sm">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <a data-toggle="tooltip" data-placement="top" title="Apagar" href="{% url 'dataclips:delete' pk=resource.pk %}" class="btn btn-default btn-sm">
+                                                <a data-toggle="tooltip" data-placement="top" title="Apagar" href="{% url 'dataclips:delete' pk=resource.pk organization=view.kwargs.organization %}" class="btn btn-default btn-sm">
                                                     <i class="fa fa-trash-o"></i>
                                                 </a>
                                             </div>

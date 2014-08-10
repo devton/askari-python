@@ -1,21 +1,25 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
+from .core.views import UserRegistrationView, UserLoginView
+
 
 # Uncomment the next two lines to enable the admin:
 admin.autodiscover()
 
-urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'askari.views.home', name='home'),
-    # url(r'^askari/', include('askari.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
+urlpatterns = patterns(
+    '',
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^databases/', include('askari.databases.urls', namespace="databases")),
-    url(r'^dataclips/', include('askari.dataclips.urls', namespace="dataclips")),
-    url(r'^', include('askari.core.urls', namespace="core")),
+
+    url(r'^login/$', 'django.contrib.auth.views.login', 
+                     {"template_name": 'core/login.html'}, 
+                     name='login'),
+
+    url(r'^register/$', UserRegistrationView.as_view(), name='registration'),
+
+    url(r'^logout/$', 'django.contrib.auth.views.logout_then_login', 
+                      name='logout'),
+
+    url(r'^success_login/$', UserLoginView.as_view(), name='login_redirect'),
+    url(r'^(?P<organization>\w+)/', include('askari.core.urls')),
 )

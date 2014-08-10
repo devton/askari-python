@@ -44,3 +44,4 @@ coverage.xml
 docs/_build/
 local_settings.py
 .idea/
+askari/test_settings.py

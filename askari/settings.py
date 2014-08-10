@@ -130,8 +130,10 @@ INSTALLED_APPS = (
     'django_filters',
     'askari.databases',
     'askari.dataclips',
+    'askari.organizations',
     'askari.core',
     'askari.core.tags',
+    'askari.core.user_profile',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -170,4 +172,4 @@ LOGGING = {
 
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
-LOGIN_REDIRECT_URL = '/dashboard/'
+LOGIN_REDIRECT_URL = '/success_login/'

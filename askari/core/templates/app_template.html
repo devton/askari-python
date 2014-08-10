@@ -16,7 +16,7 @@
     <body class="pace-done skin-blue">
 
         <header class="header">
-            <a href="{% url 'core:dashboard' %}" class="logo">
+            <a href="{% url 'dashboard' view.kwargs.organization %}" class="logo">
                 Askari
             </a>
 
@@ -39,7 +39,7 @@
 
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="{% url 'core:logout' %}">Sair</a>
+                                    <a href="{% url 'logout' %}">Sair</a>
                                 </li>
                             </ul>
                         </li>
@@ -63,26 +63,26 @@
                         <div class="pull-left info">
                             <p>Olá, {{ user }}</p>
 
-                            <a href="{% url 'core:logout' %}"><i class="fa fa-circle text-red"></i> Sair</a>
+                            <a href="{% url 'logout' %}"><i class="fa fa-circle text-red"></i> Sair</a>
                         </div>
                     </div>
 
                     <ul class="sidebar-menu">
-                        {% url 'core:dashboard' as dashboard_url %}
+                        {% url 'dashboard' view.kwargs.organization as dashboard_url %}
                         <li {% if request.path == dashboard_url %} class="active" {% endif %}>
                             <a href="{{ dashboard_url }}">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
 
-                        {% url 'databases:list' as databases_url %}
+                        {% url 'databases:list' view.kwargs.organization as databases_url %}
                         <li {% if request.path == databases_url %} class="active" {% endif %}>
                             <a href="{{ databases_url }}">
                                 <i class="fa fa-gears"></i> <span>Meus bancos</span> <small class="badge pull-right bg-green">{{ total_bases }}</small>
                             </a>
                         </li>
 
-                        {% url 'dataclips:list' as dataclips_url %}
+                        {% url 'dataclips:list' view.kwargs.organization as dataclips_url %}
                         <li {% if request.path == dataclips_url %} class="active" {% endif %}>
                             <a href="{{ dataclips_url }}">
                                 <i class="fa fa-th"></i> <span>Dataclips</span> <small class="badge pull-right bg-green">{{ total_clips }}</small>

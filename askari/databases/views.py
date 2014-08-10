@@ -18,12 +18,14 @@ class DatabaseFormMixin(DatabaseMixin):
     form_class = DatabaseForm
 
     def get_success_url(self):
-        return reverse('databases:list')
+        return reverse('databases:list', kwargs={
+            'organization': self.organization.slug})
 
 
 class DatabaseCreateView(DatabaseFormMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
+        form.instance.organization = self.organization
         return super(DatabaseCreateView, self).form_valid(form)
 
 

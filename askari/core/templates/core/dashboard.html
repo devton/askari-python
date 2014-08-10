@@ -26,7 +26,7 @@
                     <div class="icon">
                         <i class="ion ion-gear-a"></i>
                     </div>
-                    <a href="{% url 'databases:list' %}" class="small-box-footer">
+                    <a href="{% url 'databases:list' view.kwargs.organization %}" class="small-box-footer">
                         Ver todos <i class="fa fa-arrow-circle-right"></i>
                     </a>
                 </div>
@@ -45,7 +45,7 @@
                     <div class="icon">
                         <i class="ion ion-clipboard"></i>
                     </div>
-                    <a href="{% url 'dataclips:list' %}" class="small-box-footer">
+                    <a href="{% url 'dataclips:list' view.kwargs.organization %}" class="small-box-footer">
                         Ver todos <i class="fa fa-arrow-circle-right"></i>
                     </a>
                 </div>

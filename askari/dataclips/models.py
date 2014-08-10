@@ -12,7 +12,9 @@ from ..core.tags.models import Tagged
 class Clip(Tagged):
     name = models.CharField(max_length=255)
     sql_query = models.TextField()
+    user = models.ForeignKey('auth.User', null=True, blank=True)
     database = models.ForeignKey('databases.Database')
+    organization = models.ForeignKey('organizations.Organization')
     slug = models.SlugField()
 
     objects = ClipScopeManager()

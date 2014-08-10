@@ -22,7 +22,9 @@ class ClipFormMixin(ClipMixin):
     form_class = ClipForm
 
     def get_success_url(self):
-        return reverse('dataclips:edit', kwargs={'pk': self.object.pk})
+        return reverse('dataclips:edit', kwargs={
+            'pk': self.object.pk,
+            'organization': self.organization.slug})
 
 
 class ClipListView(ClipMixin, ListView):
@@ -62,7 +64,8 @@ class ClipUpdateView(ClipFormMixin, UpdateView):
 
 class ClipDeleteView(ClipFormMixin, DeleteView):
     def get_success_url(self):
-        return reverse('dataclips:list')
+        return reverse('dataclips:list', kwargs={
+            'organization': self.organization.slug})
 
 
 class ClipPublicView(DetailView):
