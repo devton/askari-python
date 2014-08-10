@@ -5,31 +5,42 @@ from django.core.urlresolvers import reverse
 from model_mommy import mommy
 
 from .models import Database
+from ..organizations.models import Organization
+from ..core.user_profile.models import UserProfile
 
 
 class DatabaseViewTest(TestCase):
     def setUp(self):
         User = get_user_model()
+        self.organization = mommy.make(Organization, slug='foo_org')
         self.user = User.objects.create_user('test', 'test@test.com', '123456')
-        self.database = mommy.make(Database, user=self.user)
+        self.user_profile = mommy.make(UserProfile, user=self.user)
+        self.user.userprofile.organizations.add(self.organization)
+        self.database = mommy.make(Database,
+                                   user=self.user,
+                                   organization=self.organization)
 
     def do_login(self):
         self.client.login(username='test', password='123456')
 
     def list_view_request(self):
-        self.url = reverse('databases:list')
+        self.url = reverse('databases:list', kwargs={
+            'organization': self.organization.slug})
         self.response = self.client.get(self.url)
 
     def new_view_request(self):
-        self.url = reverse('databases:new')
+        self.url = reverse('databases:new', kwargs={
+            'organization': self.organization.slug})
         self.response = self.client.get(self.url)
 
     def delete_view_request(self):
-        self.url = reverse('databases:delete', kwargs={'pk': self.database.pk})
+        self.url = reverse('databases:delete', kwargs={
+            'pk': self.database.pk, 'organization': self.organization.slug})
         self.response = self.client.delete(self.url)
 
     def create_view_request(self):
-        self.url = reverse('databases:new')
+        self.url = reverse('databases:new', kwargs={
+            'organization': self.organization.slug})
         self.post_attributes = {'name': u'test',
                                 'db_name': u'test',
                                 'db_host': u'test',
@@ -89,8 +100,11 @@ class DatabaseViewTest(TestCase):
         self.do_login()
         self.delete_view_request()
 
+        list_url = reverse('databases:list', kwargs={
+            'organization': self.organization.slug})
+
         self.assertEqual(self.response.status_code, 302)
-        self.assertRedirects(self.response, "/databases/")
+        self.assertRedirects(self.response, list_url)
 
         self.list_view_request()
         self.assertNotIn(self.database.name, self.response.rendered_content)
