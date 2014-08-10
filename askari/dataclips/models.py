@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import json
 
 from django.core.cache import cache
@@ -12,17 +13,25 @@ from ..core.tags.models import Tagged
 class Clip(Tagged):
     name = models.CharField(max_length=255)
     sql_query = models.TextField()
-    user = models.ForeignKey('auth.User', null=True, blank=True)
-    database = models.ForeignKey('databases.Database')
-    organization = models.ForeignKey('organizations.Organization')
     slug = models.SlugField()
+    user = models.ForeignKey('auth.User', 
+                             null=True, 
+                             blank=True,
+                             on_delete=models.DO_NOTHING)
+    database = models.ForeignKey('databases.Database', 
+                                 on_delete=models.CASCADE)
+    organization = models.ForeignKey('organizations.Organization',
+                                     on_delete=models.CASCADE)
 
     objects = ClipScopeManager()
 
     original_sql_query = None
 
-    __unicode__ = lambda self: self.name
-    cache_key = lambda self: u"dataclips_{}".format(self.pk)
+    def __unicode__(self):
+        return self.name
+
+    def cache_key(self):
+        return "dataclips_{}".format(self.pk)
 
     # Override class constructor to get the initial sql_query 
     # to turn possible to make a comparsion when clip is saved

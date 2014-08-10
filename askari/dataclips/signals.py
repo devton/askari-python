@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import uuid
 import datetime
 from Crypto.Hash import MD5

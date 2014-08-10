@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from model_mommy import mommy
@@ -14,7 +15,7 @@ class ClipModelTest(TestCase):
         self.assertEqual(self.clip.__unicode__(), self.clip.name)
 
     def test_cache_key(self):
-        key = u"dataclips_{}".format(self.clip.pk)
+        key = "dataclips_{}".format(self.clip.pk)
         self.assertEqual(self.clip.cache_key(), key)
 
     def test_slug_field_filled(self):
