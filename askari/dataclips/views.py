@@ -14,7 +14,7 @@ class ClipMixin(GenericTemplateDataMixin, LoginRequiredViewMixin):
 
     def get_queryset(self):
         qs = super(ClipMixin, self).get_queryset()
-        clips = Clip.objects.by_user(self.request.user)
+        clips = Clip.objects.filter(organization=self.organization)
         return qs & clips
 
 
