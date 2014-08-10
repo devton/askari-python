@@ -1,4 +1,5 @@
 import uuid
+import datetime
 from Crypto.Hash import MD5
 
 
@@ -12,7 +13,7 @@ class ClipSignal(object):
         if not instance.slug:
             hash_key = "{}{}{}".format(
                 instance.database.pk, 
-                instance.database.user.pk, 
+                datetime.datetime.now(), 
                 str(uuid.uuid1())
             )
 
