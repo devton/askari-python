@@ -1,3 +1,6 @@
+from __future__ import unicode_literals
+from django.utils.encoding import python_2_unicode_compatible
+
 from django.contrib import messages
 from django.views.generic import (ListView, CreateView, UpdateView,
                                   DeleteView, DetailView)
@@ -9,6 +12,7 @@ from .forms import ClipForm
 from .models import Clip
 
 
+@python_2_unicode_compatible
 class ClipMixin(GenericTemplateDataMixin, LoginRequiredViewMixin):
     model = Clip
 
@@ -18,6 +22,7 @@ class ClipMixin(GenericTemplateDataMixin, LoginRequiredViewMixin):
         return qs & clips
 
 
+@python_2_unicode_compatible
 class ClipFormMixin(ClipMixin):
     form_class = ClipForm
 
@@ -27,6 +32,7 @@ class ClipFormMixin(ClipMixin):
             'organization': self.organization.slug})
 
 
+@python_2_unicode_compatible
 class ClipListView(ClipMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(ClipListView, self).get_context_data(**kwargs)
@@ -38,16 +44,19 @@ class ClipListView(ClipMixin, ListView):
         return context
 
 
+@python_2_unicode_compatible
 class ClipCreateView(ClipFormMixin, CreateView):
     pass
 
 
+@python_2_unicode_compatible
 class ClipUpdateView(ClipFormMixin, UpdateView):
     template_name = "dataclips/clip_update_and_show.html"
 
     def get_context_data(self, **kwargs):
         context = super(ClipUpdateView, self).get_context_data(**kwargs)
 
+        executed_sql = self.object.query_result()
         try:
             executed_sql = self.object.query_result()
         except Exception as error:

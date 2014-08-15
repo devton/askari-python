@@ -1,10 +1,12 @@
 from __future__ import unicode_literals
+from django.utils.encoding import python_2_unicode_compatible
+
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from model_mommy import mommy
 from .models import Clip
 
-
+@python_2_unicode_compatible
 class ClipModelTest(TestCase):
     def setUp(self):
         User = get_user_model()
