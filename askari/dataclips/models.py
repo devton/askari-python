@@ -14,8 +14,8 @@ class Clip(Tagged):
     name = models.CharField(max_length=255)
     sql_query = models.TextField()
     slug = models.SlugField()
-    user = models.ForeignKey('auth.User', 
-                             null=True, 
+    user = models.ForeignKey('auth.User',
+                             null=True,
                              blank=True,
                              on_delete=models.DO_NOTHING)
     database = models.ForeignKey('databases.Database', 
