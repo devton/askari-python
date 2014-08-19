@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+from django.utils.encoding import python_2_unicode_compatible
+
 from django.db import models
 from django.template.defaultfilters import slugify
 
-
+@python_2_unicode_compatible
 class Tag(models.Model):
-    name = models.CharField(u"Nome", 
+    name = models.CharField("Nome", 
                             max_length=200, 
                             unique=True, 
                             db_index=True)
 
-    slug = models.SlugField(u"Slug", db_index=True, max_length=150)
+    slug = models.SlugField("Slug", db_index=True, max_length=150)
 
     __unicode__ = lambda self: self.name
 
@@ -21,18 +24,18 @@ class Tag(models.Model):
     class Meta:
         unique_together = ['slug', 'name']
 
-
+@python_2_unicode_compatible
 class Tagged(models.Model):
-    tags = models.CharField(u"Tags", 
+    tags = models.CharField("Tags", 
                             max_length=4000, 
                             blank=True,
                             null=True,
-                            help_text=u"Lista de tags separadas por virgula")
+                            help_text="Lista de tags separadas por virgula")
 
     def save(self, *args, **kwargs):
         if self.tags:
             tags = filter(None, set(self.tags.split(',')))
-            tags = map(unicode.strip, tags)
+            tags = map(str.strip, tags)
 
             for tag in tags:
                 Tag.objects.get_or_create(name=tag)

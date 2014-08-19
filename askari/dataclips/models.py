@@ -1,4 +1,6 @@
 from __future__ import unicode_literals
+from django.utils.encoding import python_2_unicode_compatible
+
 import json
 
 from django.core.cache import cache
@@ -9,7 +11,7 @@ from .managers import ClipScopeManager
 from .signals import ClipSignal
 from ..core.tags.models import Tagged
 
-
+@python_2_unicode_compatible
 class Clip(Tagged):
     name = models.CharField(max_length=255)
     sql_query = models.TextField()
@@ -113,13 +115,13 @@ class Clip(Tagged):
         for item in result[0]:
             values = []
             for value in item:
-                values.append(unicode(value))
+                values.append(value)
             row_details.append(values)
 
         # Create a awway with all query result columns
         col_details = []
         for item in result[1]:
-            col_details.append(unicode(item.name))
+            col_details.append(item.name)
 
         return {'rows': row_details, 'cols': col_details}
 

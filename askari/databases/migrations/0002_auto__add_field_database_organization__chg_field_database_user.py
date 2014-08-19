@@ -6,7 +6,9 @@ from django.db import models
 
 
 class Migration(SchemaMigration):
-
+    depends_on = (
+        ("organizations", "0001_initial"),
+    )
     def forwards(self, orm):
         # Adding field 'Database.organization'
         db.add_column(u'databases_database', 'organization',

@@ -1,9 +1,11 @@
 from __future__ import unicode_literals
+from django.utils.encoding import python_2_unicode_compatible
+
 import uuid
 import datetime
 from Crypto.Hash import MD5
 
-
+@python_2_unicode_compatible
 class ClipSignal(object):
 
     @staticmethod
@@ -19,7 +21,7 @@ class ClipSignal(object):
             )
 
             hash = MD5.new()
-            hash.update(hash_key)
+            hash.update(hash_key.encode('utf8'))
 
             instance.slug = hash.hexdigest()
 
