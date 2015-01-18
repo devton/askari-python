@@ -111,6 +111,7 @@ class Clip(Tagged):
         result = self._sql_result
 
         # Create a array with all query result values
+        # row_details = [[value for key,value in item.iteritems()] for item in restult[0]]
         row_details = []
         for item in result[0]:
             values = []
